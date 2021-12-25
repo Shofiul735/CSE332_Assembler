@@ -10,6 +10,6 @@ bne 1000
 addi 0000
 sll 1001
 srl 1010
-j 1100
-inp 1101
-otp 1110
+J 1100
+Inp 1101
+Otp 1110

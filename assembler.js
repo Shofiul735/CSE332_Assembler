@@ -10,7 +10,7 @@ let inputArr = fs.readFileSync('input.txt',{encoding:'utf-8'}).split('\n').map(i
 let instructions = {};
 let registers = {};
 let command,comAndReg,reg;
-let lineCount=0;
+let lineCount=1;
 let binaryCode="";
 let assemError = false;
 let jump = {};
@@ -66,7 +66,7 @@ const machineCode = (command,reg)=>{
             }
             return false;
         
-        case 'j':
+        case 'J':
             binaryCode+=instructions[command]+' ';
             if(jump[reg[0]]!=undefined){
                 let str='';
@@ -95,6 +95,10 @@ const machineCode = (command,reg)=>{
                 return true;
             }
             return false;
+
+        case 'inp':
+        case 'otp':
+
         case 'lw':
         case 'sw':
             binaryCode+= registers[command];
