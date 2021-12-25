@@ -96,9 +96,11 @@ const machineCode = (command,reg)=>{
             }
             return false;
 
-        case 'inp':
-        case 'otp':
-
+        case 'Inp':
+        case 'Otp':
+            binaryCode += instructions[command]+" ";
+            binaryCode += '00 00 '+registers[reg[0]]+'\n';
+            return true;
         case 'lw':
         case 'sw':
             binaryCode+= registers[command];

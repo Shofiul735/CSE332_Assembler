@@ -2,3 +2,4 @@ add $s0,$s1,$s1
 addi $s0,$s1,1
 sll $t0,$t1,3
 J jump
+Otp $s1
