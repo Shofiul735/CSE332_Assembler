@@ -2,8 +2,8 @@
 const fs = require('fs');
 
 // Reading data from files
-let insArr = fs.readFileSync('instructions.txt',{encoding:'utf-8'}).split('\n');
-let regArr = fs.readFileSync('registers.txt',{encoding:'utf-8'}).split('\n');
+let insArr = fs.readFileSync('instructions.txt',{encoding:'utf-8'}).split('\n').map(item=>item.trim()).filter(item=>item.length>0);
+let regArr = fs.readFileSync('registers.txt',{encoding:'utf-8'}).split('\n').map(item=>item.trim()).filter(item=>item.length>0);
 let inputArr = fs.readFileSync('input.txt',{encoding:'utf-8'}).split('\n').map(item=>item.trim()).filter(item=>item.length>0);
 
 // variables declearation
