@@ -166,7 +166,10 @@ for(let item of inputArr){
     }
     
 }
-if(!assemError) console.log("Complete");
+if(!assemError){
+    const write_bin = fs.writeFileSync('output_bin.txt',binaryCode,{encoding:'utf-8',flag:'w'});
+    console.log("Complete");
+} 
 
 /*
 console.log(instructions);
