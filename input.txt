@@ -1,5 +1,7 @@
-add $s0,$s1,$s1                   
-addi $s0,$s1,1
+add $s1,$s2,$s2                   
+addi $s1,$s1,1
 sll $t0,$t1,3
 J jump
 Otp $s1
+lw $s2,2($s1)
+sw $s2,2($s1)

@@ -4,7 +4,7 @@ const fs = require('fs');
 // Reading data from files
 let insArr = fs.readFileSync('instructions.txt',{encoding:'utf-8'}).split('\n');
 let regArr = fs.readFileSync('registers.txt',{encoding:'utf-8'}).split('\n');
-let inputArr = fs.readFileSync('input.txt',{encoding:'utf-8'}).split('\n').map(item=>item.trim());
+let inputArr = fs.readFileSync('input.txt',{encoding:'utf-8'}).split('\n').map(item=>item.trim()).filter(item=>item.length>0);
 
 // variables declearation
 let instructions = {};
@@ -101,10 +101,44 @@ const machineCode = (command,reg)=>{
             binaryCode += instructions[command]+" ";
             binaryCode += '00 00 '+registers[reg[0]]+'\n';
             return true;
+
+        case 'beq':
+        case 'bne':
+            // Not complete yet
+            binaryCode += instructions[command]+' ';
+            
+            return true;
         case 'lw':
         case 'sw':
-            binaryCode+= registers[command];
-            return false;
+
+            /*
+                lw $s2,2($s1)
+                0101(op) 10($s1) 11($s2) 10(2)
+            */
+
+
+            let str = reg[1].slice(2,reg[1].length-1);
+            if(registers[reg[0]] && registers[str] && instructions[command]){
+                binaryCode += instructions[command]+' ';
+                binaryCode += registers[str]+' ';
+                binaryCode += registers[reg[0]]+' ';
+                if(Number.parseInt(reg[1][0]) != NaN){
+                    let bin = Number.parseInt(reg[1][0]).toString(2);
+                    if(bin.length>2){
+                        console.log(`number excide maximum bit`);
+                        return false;
+                    }
+                    if(bin.length<2){
+                        bin = '0'+bin;
+                    }
+                    binaryCode+=bin+'\n';
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+            return true;
         default:
             return false;
 
@@ -119,11 +153,10 @@ arrayToObject(insArr,instructions);
 arrayToObject(regArr,registers);
 
 console.log("Assembling...");
-
 for(let item of inputArr){
     comAndReg = item.split(' ')
     command = comAndReg[0].trim();
-    reg = comAndReg[1].split(',').map(item=>item.trim());
+    reg = comAndReg[1].split(',').map(item=>item.trim()).filter(item=>item.length>0);
     if(machineCode(command,reg)){
         lineCount++;
     }else{
