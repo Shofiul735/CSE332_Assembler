@@ -1,0 +1,15 @@
+add 0000
+sub 0001
+and 0010
+or 0011
+xor 0100
+lw 0101
+sw 0110
+beq 0111
+bne 1000
+addi 0000
+sll 1001
+srl 1010
+j 1100
+inp 1101
+otp 1110

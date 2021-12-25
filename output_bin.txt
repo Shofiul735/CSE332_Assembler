@@ -1,0 +1,6 @@
+add $s0,$s1,$s1
+add $s0,$s1,$s1
+add $s0,$s1,$s1
+add $s0,$s1,$s1
+add $s0,$s1,$s1
+add $s0,$s1,$s1
