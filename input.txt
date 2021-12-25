@@ -5,3 +5,4 @@ J jump
 Otp $s1
 lw $s2,2($s1)
 sw $s2,2($s1)
+beq $s1,$t0,L

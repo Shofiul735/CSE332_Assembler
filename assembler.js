@@ -14,7 +14,8 @@ let lineCount=1;
 let binaryCode="";
 let assemError = false;
 let jump = {};
-let j = 0;
+let j = 4;
+let condiJ = 0;
 // Helper functions block start
 const arrayToObject = (arr,obj)=>{
     for(let item of arr){
@@ -61,7 +62,7 @@ const machineCode = (command,reg)=>{
                     }
                     return true;
                 }else{
-                    console.log(`number excide maximum bit`);
+                    console.log(`number reached maximum bit`);
                 }
             }
             return false;
@@ -80,7 +81,7 @@ const machineCode = (command,reg)=>{
             }else{
                 let bin = j.toString(2);
                 if(bin.length>6){
-                    console.log(`Label excide maximum bit`);
+                    console.log(`Label reached maximum bits`);
                     return false;
                 }
                 jump[reg[0]] = j;
@@ -106,7 +107,27 @@ const machineCode = (command,reg)=>{
         case 'bne':
             // Not complete yet
             binaryCode += instructions[command]+' ';
-            
+            if(registers[reg[0]] && registers[reg[1]]){
+               binaryCode += registers[reg[0]] + ' ';
+               binaryCode += registers[reg[1]] + ' ';
+               if(jump[reg[2]]){
+                   binaryCode += jump[reg[2]].toString(2); 
+               }else{
+                if(condiJ>3){
+                    console.log(`LIMITATION: maximum 4 coditional jump`);
+                    return false;
+                }else{
+                    let str = condiJ.toString(2);
+                    condiJ++;
+                    if(str.length<2){
+                       str = '0'+str; 
+                    }
+                    binaryCode+=str+'\n';
+                }
+               }               
+            }else{
+                return false;
+            }
             return true;
         case 'lw':
         case 'sw':
@@ -125,7 +146,7 @@ const machineCode = (command,reg)=>{
                 if(Number.parseInt(reg[1][0]) != NaN){
                     let bin = Number.parseInt(reg[1][0]).toString(2);
                     if(bin.length>2){
-                        console.log(`number excide maximum bit`);
+                        console.log(`BIT OVERFLOW`);
                         return false;
                     }
                     if(bin.length<2){
@@ -190,8 +211,8 @@ if(!assemError){
 console.log(instructions);
 console.log(registers);
 console.log(inputArr);
-*/
 console.log(binaryCode);
+*/
 
 
 
