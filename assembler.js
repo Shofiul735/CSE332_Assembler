@@ -145,6 +145,19 @@ const machineCode = (command,reg)=>{
     }
 }
 
+const convertToHex = (bCode)=>{
+    let allCodes = bCode.split('\n').map(item=>item.trim()).filter(item=>item.length>0);
+    let hex="";
+    let temp='';
+    for(let item of allCodes){
+        temp = '00';
+        temp += item.split(' ').join('');
+        hex += Number.parseInt(temp,2).toString(16);
+        hex += '\n';
+    }
+    return hex;
+}
+
 // Helper functions block end
 
 
@@ -167,8 +180,10 @@ for(let item of inputArr){
     
 }
 if(!assemError){
-    const write_bin = fs.writeFileSync('output_bin.txt',binaryCode,{encoding:'utf-8',flag:'w'});
-    console.log("Complete");
+    fs.writeFileSync('output_bin.txt',binaryCode,{encoding:'utf-8',flag:'w'});
+    let hex = convertToHex(binaryCode);
+    fs.writeFileSync('output_hex.txt',hex,{encoding:'utf-8',flag:'w'});
+    console.log("Operations Completed");
 } 
 
 /*
