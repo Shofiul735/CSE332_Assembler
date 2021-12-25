@@ -141,8 +141,8 @@ const machineCode = (command,reg)=>{
             let str = reg[1].slice(2,reg[1].length-1);
             if(registers[reg[0]] && registers[str] && instructions[command]){
                 binaryCode += instructions[command]+' ';
-                binaryCode += registers[str]+' ';
                 binaryCode += registers[reg[0]]+' ';
+                binaryCode += registers[str]+' ';
                 if(Number.parseInt(reg[1][0]) != NaN){
                     let bin = Number.parseInt(reg[1][0]).toString(2);
                     if(bin.length>2){
